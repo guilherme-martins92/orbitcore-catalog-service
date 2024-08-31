@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  OrbitCoreProductTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: OrbitCoreProductTable
+      AttributeDefinitions:
+        - AttributeName: Id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+Outputs:
+  DynamoDBTableName:
+    Description: "The name of the DynamoDB table"
+    Value: !Ref OrbitCoreProductTable

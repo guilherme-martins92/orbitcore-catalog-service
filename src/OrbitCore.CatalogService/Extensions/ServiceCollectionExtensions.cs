@@ -1,4 +1,5 @@
 ﻿using OrbitCore.CatalogService.Application.UseCases.CreateProduct;
+using OrbitCore.CatalogService.Repositories;
 
 namespace OrbitCore.CatalogService.Extensions
 {

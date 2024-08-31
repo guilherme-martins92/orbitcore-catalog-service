@@ -1,13 +1,13 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Rewrite;
 using OrbitCore.CatalogService.Extensions;
+using OrbitCore.CatalogService.Repositories.DynamoDB;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddFastEndpoints();
 builder.Services.AddUseCases();
+builder.Services.AddDynamoDB(builder.Configuration);
 
 builder.Services.SwaggerDocument(o =>
 {
