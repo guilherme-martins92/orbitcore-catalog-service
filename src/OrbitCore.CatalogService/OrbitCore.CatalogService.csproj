@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.400.13" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
     <PackageReference Include="FastEndpoints" Version="5.29.0" />
     <PackageReference Include="FastEndpoints.ClientGen" Version="5.29.0" />
     <PackageReference Include="FastEndpoints.Swagger" Version="5.29.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Infrastructure\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 </Project>

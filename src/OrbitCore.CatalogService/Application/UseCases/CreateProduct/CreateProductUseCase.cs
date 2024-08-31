@@ -1,4 +1,6 @@
-﻿namespace OrbitCore.CatalogService.Application.UseCases.CreateProduct
+﻿using OrbitCore.CatalogService.Repositories;
+
+namespace OrbitCore.CatalogService.Application.UseCases.CreateProduct
 {
     public interface ICreateProductUseCase : IUseCase<CreateProductInput, CreateProductOutput>
     {
@@ -7,9 +9,20 @@
 
     public class CreateProductUseCase : ICreateProductUseCase
     {
-        public async Task<CreateProductOutput> HandleAsync(CreateProductInput input,CancellationToken ct)
+        public CreateProductUseCase(IProductRepository productRepository)
         {
-            return new CreateProductOutput() { Id = "1234", Name = input.Name, Description = input.Description, Price = input.Price };
+            ProductRepository = productRepository;
+        }
+
+        public IProductRepository ProductRepository { get; }
+
+        public async Task<CreateProductOutput> HandleAsync(CreateProductInput input, CancellationToken ct)
+        {
+            var product = input.ToEntity();
+
+            await ProductRepository.SaveAsync(product);
+
+            return CreateProductOutput.FromEntity(product);
         }
     }
 }
