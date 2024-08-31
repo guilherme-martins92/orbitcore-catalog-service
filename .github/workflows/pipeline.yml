@@ -19,10 +19,10 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore src/CatalogService/OrbitCore.CatalogService.csproj
+        run: dotnet restore src/OrbitCore.CatalogService/OrbitCore.CatalogService.csproj
 
       - name: Build
-        run: dotnet build src/CatalogService/OrbitCore.CatalogService.csproj --configuration Release
+        run: dotnet build src/OrbitCore.CatalogService/OrbitCore.CatalogService.csproj --configuration Release
 
       - name: Run tests
-        run: dotnet test src/CatalogService.Tests/OrbitCore.CatalogService.Tests.csproj --configuration Release
+        run: dotnet test src/OrbitCore.CatalogService.Tests/OrbitCore.CatalogService.Tests.csproj --configuration Release
