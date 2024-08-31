@@ -1,8 +1,7 @@
-﻿namespace OrbitCore.CatalogService.Application.UseCases
+﻿namespace OrbitCore.CatalogService.Application.UseCases.CreateProduct
 {
-    public class CreateProductOutput
+    public class CreateProductInput
     {
-        public required string Id { get; set; }
         public required string Name { get; set; }
         public required string Description { get; set; }
         public decimal Price { get; set; }
