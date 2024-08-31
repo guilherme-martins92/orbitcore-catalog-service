@@ -1,0 +1,28 @@
+name: Build .NET 8 Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/CatalogService/CatalogService.csproj
+
+      - name: Build
+        run: dotnet build src/CatalogService/CatalogService.csproj --configuration Release
+
+      - name: Run tests
+        run: dotnet test src/CatalogService.Tests/CatalogService.Tests.csproj --configuration Release
