@@ -4,7 +4,7 @@ version = 0.1
 
 [default]
 [default.global.parameters]
-stack_name = "sam-app"
+stack_name = "orbitcore-product-app"
 
 [default.build.parameters]
 cached = true
@@ -17,12 +17,10 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
-endpoint_url = "http://localhost:4566"  # URL do LocalStack
-region = "y"
-s3_prefix = "y"
+s3_prefix = "orbitcore-product-app"
+region = "us-east-1"
 disable_rollback = true
 image_repositories = []
-stack_name = "y"
 
 [default.package.parameters]
 resolve_s3 = true
