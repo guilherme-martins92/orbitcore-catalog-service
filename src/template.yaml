@@ -1,5 +1,15 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
+Description: >
+  Sample SAM Template for OrbitCore Catalog Service
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 512
+    Tracing: Active
+    LoggingConfig:
+      LogFormat: JSON
 
 Resources:
   OrbitCoreProductTable:
@@ -16,7 +26,54 @@ Resources:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
 
+  OrbitCoreProductApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Name: OrbitCoreProductApi
+      StageName: Prod
+
+  OrbitCoreProductFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./OrbitCore.CatalogService
+      Handler: OrbitCore.CatalogService
+      Runtime: dotnet8
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        HttpApiEvent:
+          Type: HttpApi
+          Properties:
+            Path: /product
+            Method: POST
+            ApiId: !Ref OrbitCoreProductApi
+
+  ApplicationResourceGroup:
+    Type: AWS::ResourceGroups::Group
+    Properties:
+      Name:
+        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
+      ResourceQuery:
+        Type: CLOUDFORMATION_STACK_1_0
+
+  ApplicationInsightsMonitoring:
+    Type: AWS::ApplicationInsights::Application
+    Properties:
+      ResourceGroupName:
+        Ref: ApplicationResourceGroup
+      AutoConfigurationEnabled: "true"
+
 Outputs:
-  DynamoDBTableName:
-    Description: "The name of the DynamoDB table"
-    Value: !Ref OrbitCoreProductTable
+  OrbitCoreProductApiUrl:
+    Description: API Gateway endpoint URL for Prod stage for OrbitCoreProductFunction
+    Value: !Sub "https://${OrbitCoreProductApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/product/"
+  OrbitCoreProductFunction:
+    Description: Lambda Function ARN for OrbitCoreProductFunction
+    Value: !GetAtt OrbitCoreProductFunction.Arn
+  OrbitCoreProductFunctionIamRole:
+    Description: Implicit IAM Role created for OrbitCoreProductFunction
+    Value: !GetAtt OrbitCoreProductFunctionRole.Arn

@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();
 builder.Services.AddUseCases();
 builder.Services.AddDynamoDB(builder.Configuration);
+// Add AWS Lambda support.
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
 builder.Services.SwaggerDocument(o =>
 {
