@@ -5,6 +5,8 @@ namespace OrbitCore.CatalogService.Endpoints
 {
     public class CreateProduct : Endpoint<CreateProductInput, CreateProductOutput>
     {
+        public ICreateProductUseCase CreateProductUseCase { get; }
+
         public CreateProduct(ICreateProductUseCase createProductUseCase)
         {
             CreateProductUseCase = createProductUseCase;
@@ -22,12 +24,18 @@ namespace OrbitCore.CatalogService.Endpoints
             AllowAnonymous();
         }
 
-        public ICreateProductUseCase CreateProductUseCase { get; }
-
         public override async Task HandleAsync(CreateProductInput input, CancellationToken ct)
         {
-            var output = await CreateProductUseCase.HandleAsync(input, ct);
-            await SendOkAsync(output, ct);
+            try
+            {
+                var output = await CreateProductUseCase.HandleAsync(input, ct);
+                await SendOkAsync(output, ct);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Error occurred while creating product");
+                await SendErrorsAsync(500, ct);
+            }
         }
 
     }
