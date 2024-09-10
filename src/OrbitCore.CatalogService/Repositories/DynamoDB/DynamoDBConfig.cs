@@ -8,11 +8,19 @@ namespace OrbitCore.CatalogService.Repositories.DynamoDB
     {
         public static IServiceCollection AddDynamoDB(this IServiceCollection services, IConfiguration configuration)
         {
-            var awsOptions = configuration.GetSection("DynamoDBConfig").Get<AWSOptions>();
-            services.AddDefaultAWSOptions(awsOptions);
-            services.AddAWSService<IAmazonDynamoDB>();
+            // Configurar Amazon DynamoDB
+            var dynamoDbConfig = new AmazonDynamoDBConfig
+            {
+                RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(configuration["DynamoDBConfig:Region"])
+            };
 
-            services.AddScoped<IDynamoDBContext, DynamoDBContext>();
+            // Adicionar AWS DynamoDB client
+            services.AddSingleton<IAmazonDynamoDB>(sp => new AmazonDynamoDBClient(dynamoDbConfig));
+
+            // Se estiver usando DynamoDBContext
+            services.AddSingleton<IDynamoDBContext>(sp => new DynamoDBContext(sp.GetRequiredService<IAmazonDynamoDB>()));
+
+            // Registrar repositórios
             services.AddTransient<IProductRepository, ProductRepository>();
 
             return services;
