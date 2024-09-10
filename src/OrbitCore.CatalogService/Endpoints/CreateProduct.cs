@@ -26,8 +26,7 @@ namespace OrbitCore.CatalogService.Endpoints
 
         public override async Task HandleAsync(CreateProductInput input, CancellationToken ct)
         {
-            var output = new CreateProductOutput() { Description = input.Description, Id = Guid.NewGuid().ToString(), Price = input.Price, Name = input.Name };
-            Console.WriteLine(output.Name);
+            var output = await CreateProductUseCase.HandleAsync(input, ct);
             await SendOkAsync(output, ct);
         }
 

@@ -51,6 +51,9 @@ Resources:
             Path: /product
             Method: POST
             ApiId: !Ref OrbitCoreProductApi
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrbitCoreProductTable
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
