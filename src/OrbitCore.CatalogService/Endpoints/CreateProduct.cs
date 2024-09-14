@@ -37,6 +37,5 @@ namespace OrbitCore.CatalogService.Endpoints
                 await SendErrorsAsync(500, ct);
             }
         }
-
     }
 }
