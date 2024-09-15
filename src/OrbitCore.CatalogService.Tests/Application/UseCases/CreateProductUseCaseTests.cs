@@ -11,8 +11,7 @@ namespace OrbitCore.CatalogService.Tests.Application.UseCases
         private readonly CreateProductUseCase createProductUseCase;
 
         public CreateProductUseCaseTests()
-        {
-            // Inicializa o mock do repositório
+        {           
             _productRepositoryMock = new Mock<IProductRepository>();
             createProductUseCase = new CreateProductUseCase(_productRepositoryMock.Object);
         }
