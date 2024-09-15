@@ -1,5 +1,5 @@
 ﻿using OrbitCore.CatalogService.Application.UseCases.CreateProduct;
-using OrbitCore.CatalogService.Repositories;
+using OrbitCore.CatalogService.Application.UseCases.GetProduct;
 
 namespace OrbitCore.CatalogService.Extensions
 {
@@ -8,6 +8,7 @@ namespace OrbitCore.CatalogService.Extensions
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
             services.AddScoped<ICreateProductUseCase, CreateProductUseCase>();
+            services.AddScoped<IGetProductUseCase, GetProductUseCase>();
 
             return services;
         }
