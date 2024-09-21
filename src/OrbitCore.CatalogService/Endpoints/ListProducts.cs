@@ -2,5 +2,6 @@
 {
     public class ListProducts
     {
+        //Próximo endpoint.
     }
 }
