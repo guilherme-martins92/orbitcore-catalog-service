@@ -44,9 +44,9 @@ namespace OrbitCore.CatalogService.Tests.Application.UseCases
             // Arrange
             var productId = "123";
 
-#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
-            _productRepositoryMock.Setup(repo => repo.GetByIdAsync(productId)).ReturnsAsync((Product?)null);
-#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
+
+            _productRepositoryMock.Setup(repo => repo.GetByIdAsync(productId)).ReturnsAsync((Product)null!);
+
 
             // Act
             var result = await getProductUseCase.GetProductByIdAsync(productId, CancellationToken.None);

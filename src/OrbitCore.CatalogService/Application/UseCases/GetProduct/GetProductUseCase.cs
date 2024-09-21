@@ -5,7 +5,8 @@ namespace OrbitCore.CatalogService.Application.UseCases.GetProduct
 {
     public class GetProductUseCase : IGetProductUseCase
     {
-        public IProductRepository ProductRepository { get; }
+        private IProductRepository ProductRepository { get; }
+
         public GetProductUseCase(IProductRepository productRepository)
         {
             ProductRepository = productRepository;

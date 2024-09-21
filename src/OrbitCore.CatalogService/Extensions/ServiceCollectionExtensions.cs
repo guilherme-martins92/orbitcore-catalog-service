@@ -1,4 +1,5 @@
 ﻿using OrbitCore.CatalogService.Application.UseCases.CreateProduct;
+using OrbitCore.CatalogService.Application.UseCases.DeleteProduct;
 using OrbitCore.CatalogService.Application.UseCases.GetProduct;
 
 namespace OrbitCore.CatalogService.Extensions
@@ -9,6 +10,7 @@ namespace OrbitCore.CatalogService.Extensions
         {
             services.AddScoped<ICreateProductUseCase, CreateProductUseCase>();
             services.AddScoped<IGetProductUseCase, GetProductUseCase>();
+            services.AddScoped<IDeleteProductUseCase, DeleteProductUseCase>();
 
             return services;
         }
