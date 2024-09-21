@@ -1,9 +1,9 @@
 ﻿using Mapster;
 using OrbitCore.CatalogService.Domain.Entities;
 
-namespace OrbitCore.CatalogService.Application.UseCases.GetProduct
+namespace OrbitCore.CatalogService.Application.UseCases.DeleteProduct
 {
-    public class GetProductOutput
+    public class DeleteProductOutput
     {
         public required string Id { get; set; }
         public required string Name { get; set; }
@@ -12,9 +12,9 @@ namespace OrbitCore.CatalogService.Application.UseCases.GetProduct
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        public static GetProductOutput FromEntity(Product product)
+        public static DeleteProductOutput FromEntity(Product product)
         {
-            return product.Adapt<GetProductOutput>();
+            return product.Adapt<DeleteProductOutput>();
         }
     }
 }

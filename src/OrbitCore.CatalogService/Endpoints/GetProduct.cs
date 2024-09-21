@@ -44,7 +44,7 @@ namespace OrbitCore.CatalogService.Endpoints
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Error occurred while creating product");
+                Logger.LogError(ex, "Error occurred while getting product");
                 await SendErrorsAsync(500, ct);
             }
         }
