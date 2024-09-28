@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Suporte para Node.js 20
+        uses: actions/checkout@v4  # Suporte para Node.js 20
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v3  # Suporte para Node.js 20
+        uses: actions/setup-dotnet@v4  # Suporte para Node.js 20
         with:
           dotnet-version: '8.x'
 
@@ -35,10 +35,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
@@ -54,14 +54,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up AWS CLI
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
       - name: Deploy to AWS Lambda
-        run: sam deploy --code-only --no-confirm-changeset
+        run: |
+          # Exemplo com AWS CLI, você pode ajustar de acordo com a sua necessidade
+          zip -r orbitcore-product-app-OrbitCoreProductFunction.zip .   # Zipar o código
+          aws lambda update-function-code --orbitcore-product-app-OrbitCoreProductFunction --zip-file fileb://function.zip
