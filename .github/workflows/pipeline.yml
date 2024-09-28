@@ -67,4 +67,4 @@ jobs:
         run: |
           # Exemplo com AWS CLI, você pode ajustar de acordo com a sua necessidade
           zip -r orbitcore-product-app-OrbitCoreProductFunction.zip .   # Zipar o código
-          aws lambda update-function-code --orbitcore-product-app-OrbitCoreProductFunction --zip-file fileb://function.zip
+          aws lambda update-function-code --function-name orbitcore-product-app-OrbitCoreProductFunction --zip-file fileb://function.zip
