@@ -1,32 +1,46 @@
-name: Build .NET 8 Application
+name: Build and Deploy .NET 8 Application
 
 on:
   push:
     branches:
       - main
-      
   pull_request:
     branches:
       - main
-      
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout do código do repositório
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Configura o .NET 8
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.x'
 
+      # Restaura as dependências
       - name: Restore dependencies
         run: dotnet restore src/OrbitCore.CatalogService/OrbitCore.CatalogService.csproj
 
+      # Faz o build da aplicação
       - name: Build
         run: dotnet build src/OrbitCore.CatalogService/OrbitCore.CatalogService.csproj --configuration Release
 
+      # Executa os testes
       - name: Run tests
         run: dotnet test src/OrbitCore.CatalogService.Tests/OrbitCore.CatalogService.Tests.csproj --configuration Release
+
+      # Deploy apenas quando for push na branch main
+      - name: Deploy to AWS Lambda
+        if: github.ref == 'refs/heads/main'  # Garante que só roda na branch main
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Configura as credenciais AWS
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1   # Defina sua região
+        run:
+         sam deploy --code-only --no-confirm-changeset
