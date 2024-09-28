@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Suporte para Node.js 20
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v3  # Suporte para Node.js 20
         with:
           dotnet-version: '8.x'
 
@@ -31,7 +31,7 @@ jobs:
   # Job 2: Test
   test:
     runs-on: ubuntu-latest
-    needs: build  # Este job depende do job de build ser concluído com sucesso
+    needs: build
 
     steps:
       - name: Checkout code
@@ -48,9 +48,9 @@ jobs:
   # Job 3: Deploy
   deploy:
     runs-on: ubuntu-latest
-    needs: test  # Este job depende do job de test ser concluído com sucesso
+    needs: test
 
-    if: github.ref == 'refs/heads/main'  # Garante que só roda na branch main
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
