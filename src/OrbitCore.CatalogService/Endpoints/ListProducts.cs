@@ -3,5 +3,6 @@
     public class ListProducts
     {
         //Próximo endpoint.
+        //teste pipeline.
     }
 }
